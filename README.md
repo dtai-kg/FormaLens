@@ -77,4 +77,4 @@ engine and the built webpage make no network calls and embed no model.
 
 ## License
 
-MIT, see `LICENSE`.
+Apache-2.0, see `LICENSE`.
