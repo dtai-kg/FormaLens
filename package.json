@@ -1,0 +1,26 @@
+{
+  "name": "formalens",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "FormaLens harness: deterministic bidirectional SHACL <-> paper-notation translation engine, checks CLI, and webapp",
+  "scripts": {
+    "build:webapp": "vite build webapp",
+    "compose-check": "tsx tools/compose-check.ts"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "katex": "0.18.1",
+    "n3": "2.1.1",
+    "randexp": "0.5.3",
+    "rdf-validate-shacl": "0.6.5"
+  },
+  "devDependencies": {
+    "@types/n3": "1.26.1",
+    "@types/node": "26.1.1",
+    "tsx": "4.23.1",
+    "typescript": "7.0.2",
+    "vite": "8.1.5",
+    "vite-plugin-singlefile": "2.3.3"
+  }
+}

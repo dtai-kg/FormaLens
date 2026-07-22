@@ -1,0 +1,30 @@
+{ "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["meta", "rules", "composition", "coverage"],
+  "properties": {
+    "meta": { "type": "object", "required": ["paperTitle"], "properties": {
+      "paperTitle": { "type": "string" }, "paperId": { "type": "string" } } },
+    "rules": { "type": "array", "minItems": 1, "items": {
+      "type": "object", "required": ["construct", "position", "template", "source"],
+      "properties": {
+        "id": { "type": "string",
+          "description": "optional stable identifier; derived from the construct pattern by the loader when absent" },
+        "construct": { "type": "string",
+          "description": "SHACL construct pattern: pseudo-Turtle snippet of the construct IRI abbreviation plus placeholders, e.g. \"sh:maxInclusive {v}\", \"sh:property [sh:path {p}; {body}]\"" },
+        "position": { "enum": ["target", "constraint", "wrapper"],
+          "description": "position domain; injected automatically by the loader from the registry, the agent never writes it" },
+        "template": { "type": "string",
+          "description": "notation template sharing placeholders with the construct pattern; contextual placeholders like {p} may appear on the template side only" },
+        "source": { "type": "string",
+          "description": "locator inside the paper: definition, section, or page number, free form" } } } },
+    "composition": { "type": "object", "required": ["connective"], "properties": {
+      "connective": { "type": "string",
+        "description": "default connective for the implicit conjunction" },
+      "parens": { "enum": ["always", "onMixed", "never"], "default": "onMixed" },
+      "byContext": { "type": "object",
+        "description": "optional per-context connective overrides: node-shape / property-shape -> connective",
+        "propertyNames": { "enum": ["node-shape", "property-shape"] },
+        "additionalProperties": { "type": "string" } } } },
+    "coverage": { "type": "object", "required": ["supported"], "properties": {
+      "supported": { "type": "array", "items": { "type": "string" },
+        "description": "positive list (locked design): construct IRI abbreviations whose formalization the paper covers; anything absent is rejected, and the deferred list is derived as registry minus supported minus engine-deferred" } } } } }

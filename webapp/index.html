@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FormaLens — SHACL2RML notation translator</title>
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="brand">
+        <span class="brand-name">FormaLens</span>
+        <span class="brand-sub" id="paper-subtitle"></span>
+      </div>
+      <nav class="tabs" role="tablist">
+        <button data-tab="forward" class="tab active" role="tab">Shapes → Notation</button>
+        <button data-tab="reverse" class="tab" role="tab">Notation → Shapes</button>
+        <button data-tab="transparency" class="tab" role="tab">Transparency</button>
+      </nav>
+    </div>
+  </header>
+  <main class="app-main">
+    <section id="tab-forward" class="tab-panel"></section>
+    <section id="tab-reverse" class="tab-panel" hidden></section>
+    <section id="tab-transparency" class="tab-panel" hidden></section>
+  </main>
+  <div id="tooltip" hidden></div>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>

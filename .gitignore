@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+dist/
+.venv/
+*.log
+webapp/dist/
+scratchpad/
+backup/
+compilation/profile.json
+compilation/plugins/
+compilation/review.json
