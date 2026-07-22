@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="FormaLens owl">
+  <rect width="128" height="128" fill="#D9543C"/>
+  <g transform="translate(9,5) scale(0.9)">
+    <polygon points="34,28 47,9 53,31" fill="#F1E7D8"/>
+    <polygon points="86,28 73,9 67,31" fill="#F1E7D8"/>
+    <ellipse cx="21" cy="80" rx="12" ry="26" fill="#E7DAC6"/>
+    <ellipse cx="99" cy="80" rx="12" ry="26" fill="#E7DAC6"/>
+    <ellipse cx="60" cy="76" rx="42" ry="50" fill="#F1E7D8"/>
+    <ellipse cx="60" cy="84" rx="27" ry="37" fill="#EFE4D2"/>
+    <circle cx="45" cy="60" r="16" fill="#FBF7EF"/>
+    <circle cx="75" cy="60" r="16" fill="#FBF7EF"/>
+    <circle cx="45" cy="60" r="6.5" fill="#2A2620"/>
+    <circle cx="75" cy="60" r="6.5" fill="#2A2620"/>
+    <g fill="none" stroke="#2A2620" stroke-width="2.8">
+      <circle cx="45" cy="60" r="18"/>
+      <circle cx="75" cy="60" r="18"/>
+      <line x1="61" y1="60" x2="59" y2="60"/>
+    </g>
+    <polygon points="60,68 53,76 67,76" fill="#B23A28"/>
+    <ellipse cx="49" cy="123" rx="8" ry="5" fill="#B23A28"/>
+    <ellipse cx="71" cy="123" rx="8" ry="5" fill="#B23A28"/>
+  </g>
+</svg>
