@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/owl-512.png" width="120" alt="FormaLens" />
+</p>
+
 # FormaLens: Compile-Time Autoformalization for Understanding SHACL Formalization Papers with Coding Agents
 
 FormaLens is a compile-time autoformalization harness. Given a research paper
