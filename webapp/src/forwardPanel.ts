@@ -139,9 +139,11 @@ export function mountForwardPanel(root: HTMLElement, data: AppData): void {
     }
 
     renderResults(translations, ttl);
+    window.dispatchEvent(new CustomEvent("formalens:result", { detail: { ok: true } }));
   }
 
   function gateFail(gate: number, title: string, detail: string): void {
+    window.dispatchEvent(new CustomEvent("formalens:result", { detail: { ok: false } }));
     output.innerHTML = `
       <div class="reject">
         <span class="reject-gate">Gate ${gate} of 3</span>
@@ -151,6 +153,7 @@ export function mountForwardPanel(root: HTMLElement, data: AppData): void {
   }
 
   function renderRejection(err: UnsupportedConstruct): void {
+    window.dispatchEvent(new CustomEvent("formalens:result", { detail: { ok: false } }));
     const label = err.reason === "paper"
       ? "not formalized by the paper" : "not implemented by the translator";
     output.innerHTML = `

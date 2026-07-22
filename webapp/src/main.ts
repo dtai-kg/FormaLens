@@ -3,6 +3,7 @@ import { initData } from "./data";
 import { mountForwardPanel } from "./forwardPanel";
 import { mountReversePanel } from "./reversePanel";
 import { mountTransparency } from "./transparency";
+import { mountOwl } from "./owl";
 
 function mountEmptyState(): void {
   document.getElementById("paper-subtitle")!.textContent =
@@ -47,14 +48,32 @@ try {
     mountReversePanel(document.getElementById("tab-reverse")!, data);
     mountTransparency(document.getElementById("tab-transparency")!, data);
 
-    for (const btn of document.querySelectorAll<HTMLButtonElement>(".tabs .tab")) {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tabs .tab").forEach((b) => b.classList.toggle("active", b === btn));
-        for (const tab of ["forward", "reverse", "transparency"]) {
-          document.getElementById(`tab-${tab}`)!.hidden = tab !== btn.dataset.tab;
-        }
-      });
-    }
+    const owl = mountOwl(document.querySelector<HTMLElement>(".tabs")!);
+    window.addEventListener("formalens:result", (e) => {
+      owl.react((e as CustomEvent<{ ok: boolean }>).detail.ok ? "happy" : "worried");
+    });
+
+    const MODE = { forward: "forward", reverse: "reverse", transparency: "transparency" } as const;
+    const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>(".tabs .tab"));
+    const activate = (btn: HTMLButtonElement): void => {
+      buttons.forEach((b) => b.classList.toggle("active", b === btn));
+      for (const tab of ["forward", "reverse", "transparency"]) {
+        document.getElementById(`tab-${tab}`)!.hidden = tab !== btn.dataset.tab;
+      }
+      const mode = btn.dataset.tab as keyof typeof MODE;
+      owl.setMode(MODE[mode]);
+      owl.perchOn(btn);
+    };
+    for (const btn of buttons) btn.addEventListener("click", () => activate(btn));
+
+    // perch on the initially active tab once layout is measurable
+    requestAnimationFrame(() => owl.perchOn(buttons.find((b) => b.classList.contains("active")) ?? buttons[0]));
+
+    const footer = document.getElementById("app-footer")!;
+    footer.hidden = false;
+    footer.innerHTML = `<div class="app-footer-inner">`
+      + `<span>${data.compiled.profile.meta.paperTitle}</span>`
+      + `<span>FormaLens · deterministic · offline</span></div>`;
   }
 } catch (err) {
   mountError(err as Error);

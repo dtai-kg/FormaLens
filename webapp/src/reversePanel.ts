@@ -56,6 +56,7 @@ export function mountReversePanel(root: HTMLElement, data: AppData): void {
   root.addEventListener("input", refresh);
   root.addEventListener("change", refresh);
 
+  let wasComplete = false;
   function refresh(): void {
     let targetNode: FNode | null = null;
     let constraintNode: FNode | null = null;
@@ -96,9 +97,13 @@ export function mountReversePanel(root: HTMLElement, data: AppData): void {
         constraint: constraintNode ?? undefined,
         prefixes: { "": "http://example.org/", ex: "http://example.org/" },
       });
-    } catch (err) {
+      // owl cheers when a complete shape first appears (edge-triggered)
+      if (!wasComplete) window.dispatchEvent(new CustomEvent("formalens:result", { detail: { ok: true } }));
+      wasComplete = true;
+    } catch {
       out.textContent = targetNode === null && constraintNode === null
         ? "" : "# shape incomplete: fill in the remaining fields on the left";
+      wasComplete = false;
     }
   }
 

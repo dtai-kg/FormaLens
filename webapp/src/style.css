@@ -1,32 +1,32 @@
 /* ---------------------------------------------------------------------------
-   FormaLens UI: warm paper look.
-   Tone: serif as the protagonist, generous whitespace, rounded corners,
-   mono micro-labels for guidance, black cards for emphasis.
-   Palette: background #EFEAE0, light card #E5DFD2, accent orange #CD6D47,
-   sage #BDCEC0, deep sage #6B8A6F, black #1A1A1A.
+   FormaLens UI: aged-paper zine look (after the "Shore Pause" poster).
+   Tone: cool oatmeal paper with printed grain, serif as the protagonist,
+   generous whitespace, a single high-chroma accent, black cards for emphasis.
    Offline constraint: system font stacks only.
 --------------------------------------------------------------------------- */
 :root {
-  --bg: #EFEAE0;            /* main background: warm cream */
-  --card: #F7F4EC;          /* card face: paper slightly lighter than the background */
-  --card-deep: #E5DFD2;     /* light card: heads and secondary surfaces */
-  --ink: #1A1A1A;
-  --ink-2: #5c574d;
-  --ink-3: #8f887a;
-  --line: #DCD5C6;
-  --line-strong: #C9C1AF;
-  --accent: #CD6D47;        /* accent orange: active tab, primary button, keywords */
+  --bg: #E6E3DA;            /* aged paper: cool oatmeal, not warm cream */
+  --card: #F1EFE8;          /* card face: lighter sheet */
+  --card-deep: #E3DED3;     /* heads and secondary surfaces */
+  --ink: #26241f;           /* soft warm near-black (printed ink, not pure black) */
+  --ink-2: #57534a;
+  --ink-3: #8c877b;
+  --line: #D3CEC1;
+  --line-strong: #C0BAAB;
+  --accent: #D9543C;        /* accent: the single high-chroma anchor (poster vermillion) */
   --sage: #BDCEC0;          /* sage: the bidirectional highlight color */
   --sage-deep: #6B8A6F;     /* deep sage: pass states, secondary emphasis */
-  --black-card: #1A1A1A;    /* black card for emphasis */
-  --black-card-ink: #F3EFE6;
+  --black-card: #201d18;    /* warm near-black card for emphasis */
+  --black-card-ink: #EFEBE1;
   --bad: #A03B2E;
-  --bad-bg: #F3E4DE;
+  --bad-bg: #EFE1DB;
   --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
   --serif: "Charter", "Iowan Old Style", Georgia, "Times New Roman", serif;
   --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
-  --radius: 12px;
-  --radius-s: 8px;
+  --radius: 0px;
+  --radius-s: 0px;
+  --paper-tex: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27240%27%20height%3D%27240%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.75%27%20numOctaves%3D%272%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20type%3D%27saturate%27%20values%3D%270%27%2F%3E%3CfeComponentTransfer%3E%3CfeFuncA%20type%3D%27gamma%27%20amplitude%3D%271%27%20exponent%3D%275%27%20offset%3D%270%27%2F%3E%3C%2FfeComponentTransfer%3E%3CfeComponentTransfer%3E%3CfeFuncA%20type%3D%27linear%27%20slope%3D%270.75%27%20intercept%3D%270%27%2F%3E%3C%2FfeComponentTransfer%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type%3D%27linear%27%20slope%3D%270%27%20intercept%3D%270.16%27%2F%3E%3CfeFuncG%20type%3D%27linear%27%20slope%3D%270%27%20intercept%3D%270.15%27%2F%3E%3CfeFuncB%20type%3D%27linear%27%20slope%3D%270%27%20intercept%3D%270.13%27%2F%3E%3C%2FfeComponentTransfer%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url%28%23g%29%27%2F%3E%3C%2Fsvg%3E");
+  --tex-size: 240px 240px;
 }
 
 * { box-sizing: border-box; }
@@ -34,13 +34,15 @@
 [hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0; background: var(--bg); color: var(--ink);
+  margin: 0; background-color: var(--bg); color: var(--ink);
   font-family: var(--serif); font-size: 16px; line-height: 1.6;
+  min-height: 100vh; display: flex; flex-direction: column;   /* sticky-footer column */
 }
+
 code { font-family: var(--mono); font-size: .85em; }
 
 /* ---- header ---- */
-.app-header { background: var(--bg); }
+.app-header { background: transparent; }
 .app-header-inner {
   max-width: 1180px; margin: 0 auto; padding: 1.6rem 1.5rem 0;
   display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem;
@@ -63,21 +65,21 @@ code { font-family: var(--mono); font-size: .85em; }
 .tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 700; }
 
 /* ---- layout ---- */
-.app-main { max-width: 1180px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-.split { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1.6rem; align-items: start; }
+.app-main { max-width: 1180px; width: 100%; margin: 0 auto; padding: 2rem 1.5rem 3rem; flex: 1 0 auto; }
+.split { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1.6rem; align-items: stretch; }
 @media (max-width: 880px) { .split { grid-template-columns: 1fr; } }
 
 .card {
-  background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-  overflow: hidden;
+  background-color: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; display: flex; flex-direction: column;
 }
+.card-body { flex: 1 1 auto; }
 .card-head {
   display: flex; align-items: center; justify-content: space-between; gap: .8rem;
-  padding: .6rem 1rem; border-bottom: 1px solid var(--line);
-  background: var(--card-deep);
-  /* uniform head height: heads with buttons (Turtle editor) and heads with only
-     a title (Paper notation) must align across the split */
-  min-height: 2.9rem;
+  padding: 0 1rem; border-bottom: 1px solid var(--line);
+  background-color: var(--card-deep);
+  /* fixed head height so a head with buttons matches a title-only head exactly */
+  height: 2.9rem;
 }
 .card-title {
   font-family: var(--mono); font-size: .72rem; font-weight: 500;
@@ -86,17 +88,28 @@ code { font-family: var(--mono); font-size: .85em; }
 .card-body { padding: 1rem 1.1rem; }
 .card-body.tight { padding: 0; }
 
-/* ---- buttons ---- */
+/* ---- buttons: hand-pressed ink-stamp — a solid inked block with slightly
+   irregular edges (the ::before layer is filtered), crisp upright label on top ---- */
 .btn {
-  appearance: none; font-family: var(--sans); font-size: .84rem; cursor: pointer;
-  border: 1px solid var(--line-strong); border-radius: 99px;
-  background: var(--card); color: var(--ink); padding: .34rem .9rem;
-  transition: border-color .12s ease, background-color .12s ease;
+  position: relative; isolation: isolate;
+  appearance: none; cursor: pointer;
+  font-family: var(--mono); font-size: .68rem; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  border: none; border-radius: 0; padding: .5rem 1.05rem;
+  color: #F1E7D8; background: transparent;
 }
-.btn:hover { border-color: var(--ink-3); }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: #FBF7EF; }
-.btn.primary:hover { filter: brightness(1.06); }
-.btn.subtle { border-color: transparent; background: none; color: var(--accent); }
+.btn::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background-color: var(--accent);
+  background-image: var(--paper-tex); background-size: var(--tex-size);
+  filter: url(#ink-stamp);                     /* only the block edges get the inked irregularity */
+}
+.btn:hover::before { filter: url(#ink-stamp) brightness(1.06); }
+/* Load example: a lighter muted-ink secondary chop */
+.btn:not(.primary) { color: #34302a; }
+.btn:not(.primary)::before { background-color: #b7b0a2; }
+.btn.subtle { color: var(--accent); padding: .3rem .4rem; }
+.btn.subtle::before { display: none; }
 .btn-row { display: flex; gap: .45rem; }
 
 .hint { color: var(--ink-2); font-size: .85rem; font-family: var(--sans); }
@@ -111,12 +124,12 @@ code { font-family: var(--mono); font-size: .85em; }
 .editor-gutter {
   padding: .8rem .55rem .8rem .9rem; text-align: right; user-select: none;
   font-family: var(--mono); font-size: .82rem; line-height: 1.65;
-  color: var(--ink-3); background: var(--card-deep); border-right: 1px solid var(--line);
+  color: var(--ink-3); background-color: var(--card-deep); border-right: 1px solid var(--line);
   white-space: pre;
 }
 .editor textarea {
   border: none; outline: none; resize: vertical; min-height: 20rem; width: 100%;
-  padding: .8rem 1rem; background: var(--card); color: var(--ink);
+  padding: .8rem 1rem; background-color: var(--card); color: var(--ink);
   font-family: var(--mono); font-size: .82rem; line-height: 1.65; white-space: pre; overflow-x: auto;
 }
 .ttl-view {
@@ -136,7 +149,7 @@ code { font-family: var(--mono); font-size: .85em; }
 .shape-name { font-family: var(--mono); font-size: .78rem; color: var(--sage-deep); margin: 0 0 .6rem; }
 .formula-row {
   display: flex; gap: .9rem; align-items: baseline; margin: .4rem 0;
-  font-size: 1.08rem; overflow-x: auto; padding: .15rem 0;
+  font-size: .88rem; overflow-x: auto; padding: .15rem 0;
 }
 .formula-label { font-family: var(--serif); font-style: italic; color: var(--ink-2); min-width: 1rem; }
 [data-line] { border-radius: 4px; transition: background-color .1s ease; }
@@ -210,7 +223,7 @@ code { font-family: var(--mono); font-size: .85em; }
 .parse-status.bad { color: var(--bad); }
 
 /* ---- Tab 2 preview ---- */
-.preview-formula { padding: 1rem 1.2rem; font-size: 1.08rem; overflow-x: auto; min-height: 3.4rem; }
+.preview-formula { padding: 1rem 1.2rem; font-size: .88rem; overflow-x: auto; min-height: 3.4rem; }
 .preview-ttl { border-top: 1px solid var(--line); }
 /* rv-output is a plain-text pre (no per-line .ttl-line padding), needs its own horizontal padding */
 .preview-ttl .ttl-view { padding: .8rem 1rem; }
@@ -263,3 +276,100 @@ code { font-family: var(--mono); font-size: .85em; }
 .status-fail { color: var(--bad); }
 .quote { color: var(--ink-2); font-style: italic; }
 .fix-note { color: var(--sage-deep); font-style: normal; font-size: .8rem; display: inline-block; margin-top: .15rem; }
+
+/* ---- mascot owl (perches on the active tab, changes expression per tab) ---- */
+.tabs { position: relative; }
+.owl {
+  position: absolute; bottom: calc(100% - 7px); left: 0; width: 46px;
+  transform-origin: bottom center; cursor: pointer; z-index: 5;
+  -webkit-tap-highlight-color: transparent;
+  transition: left .55s cubic-bezier(.34, 1.56, .64, 1);
+  animation: owl-drop .6s cubic-bezier(.34, 1.56, .64, 1) both;
+}
+@keyframes owl-drop { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
+.owl-inner { display: block; transform-origin: bottom center; animation: owl-breathe 4s ease-in-out infinite; }
+.owl-svg { display: block; width: 100%; height: auto; transform-origin: bottom center; }
+.owl-body { fill: var(--sage-deep); }
+.owl-belly { fill: #e9ead9; }
+.owl-wing { fill: #557059; }
+.owl-tuft { fill: var(--sage-deep); }
+.owl-eye { fill: #faf7ef; }
+.owl-pupil { fill: var(--ink); }
+.owl-lid {
+  fill: var(--sage-deep);
+  transform-box: fill-box; transform-origin: center top; transform: scaleY(0);
+  animation: owl-blink 5.2s infinite;
+}
+.owl-lid-r { animation-delay: .08s; }
+.owl-beak, .owl-foot { fill: var(--accent); }
+.owl-glasses { display: none; fill: none; stroke: var(--ink); stroke-width: 2.4; opacity: .82; }
+
+/* per-tab expressions */
+.owl-reverse .owl-lid-r { transform: scaleY(1); animation: none; }   /* wink */
+.owl-transparency .owl-glasses { display: block; }                    /* reading glasses */
+
+@keyframes owl-breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-1.5px) scale(1.02); }
+}
+@keyframes owl-blink {
+  0%, 90%, 100% { transform: scaleY(0); }
+  93%, 97% { transform: scaleY(1); }
+}
+.owl-land .owl-inner,
+.owl-happy .owl-inner { animation: owl-hop .65s cubic-bezier(.34, 1.56, .64, 1); }
+@keyframes owl-hop {
+  0% { transform: translateY(0) scale(1, 1); }
+  28% { transform: translateY(-15px) scale(.93, 1.09); }
+  55% { transform: translateY(0) scale(1.06, .94); }
+  75% { transform: translateY(-4px) scale(.99, 1.01); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+.owl-worried .owl-svg { animation: owl-tilt 1.2s ease-in-out; }
+@keyframes owl-tilt {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-9deg); }
+  45% { transform: rotate(6deg); }
+  70% { transform: rotate(-4deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .owl, .owl-inner, .owl-lid,
+  .owl-land .owl-inner, .owl-happy .owl-inner, .owl-worried .owl-svg { animation: none; transition: none; }
+}
+
+/* ---- spring-smooth entrances for formula output ---- */
+.shape-block { animation: rise .5s cubic-bezier(.34, 1.56, .64, 1) both; }
+.shape-block:nth-child(2) { animation-delay: .06s; }
+.shape-block:nth-child(3) { animation-delay: .12s; }
+.formula-row { animation: rise .5s cubic-bezier(.34, 1.56, .64, 1) both; }
+.shape-block .formula-row:nth-child(2) { animation-delay: .08s; }
+.shape-block .formula-row:nth-child(3) { animation-delay: .16s; }
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shape-block, .formula-row { animation: none; }
+}
+
+
+/* ---- colophon footer (sticks to the page bottom, zine style) ---- */
+.app-footer {
+  flex-shrink: 0; border-top: 1px solid var(--line);
+  color: var(--ink-3); font-family: var(--mono); font-size: .7rem; letter-spacing: .08em;
+}
+.app-footer-inner {
+  max-width: 1180px; margin: 0 auto; padding: 1rem 1.5rem 1.4rem;
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  text-transform: uppercase;
+}
+
+/* ---- printed-paper grain on every surface, behind its content (text stays crisp).
+   Soft intensity, uniform across page + cards, like a single sheet of aged paper. ---- */
+body {
+  background-image: var(--paper-tex);
+  background-size: var(--tex-size);
+  background-repeat: repeat;
+}
+
+.katex { font-size: 1.0em; }

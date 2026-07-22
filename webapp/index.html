@@ -24,6 +24,13 @@
     <section id="tab-reverse" class="tab-panel" hidden></section>
     <section id="tab-transparency" class="tab-panel" hidden></section>
   </main>
+  <footer class="app-footer" id="app-footer" hidden></footer>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <filter id="ink-stamp" x="-6%" y="-10%" width="112%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.14 0.17" numOctaves="2" seed="7" result="n" />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs></svg>
   <div id="tooltip" hidden></div>
   <script type="module" src="./src/main.ts"></script>
 </body>
