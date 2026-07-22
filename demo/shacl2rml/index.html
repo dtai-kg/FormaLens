@@ -707,7 +707,7 @@ l0,-`+(t+144)+`c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
     <div class="split">
       <div class="card">
         <div class="card-head">
-          <span class="card-title">SHACL shapes (Turtle)</span>
+          <span class="card-title">SHACL shapes</span>
           <span class="btn-row">
             <button id="fw-example" class="btn">Load example</button>
             <button id="fw-run" class="btn primary">Translate</button>
@@ -717,7 +717,7 @@ l0,-`+(t+144)+`c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
           <div class="editor" id="fw-editor">
             <div class="editor-gutter" id="fw-gutter">1</div>
             <textarea id="fw-input" spellcheck="false"
-              placeholder="Paste a Turtle shapes graph here…"></textarea>
+              placeholder="Paste a shapes graph here…"></textarea>
           </div>
           <pre id="fw-mirror" class="ttl-view" hidden></pre>
         </div>
@@ -730,7 +730,7 @@ l0,-`+(t+144)+`c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
       </div>
     </div>`;let n=e.querySelector(`#fw-input`),r=e.querySelector(`#fw-editor`),i=e.querySelector(`#fw-gutter`),a=e.querySelector(`#fw-mirror`),o=e.querySelector(`#fw-output`),s=()=>{let e=n.value.split(`
 `).length;i.textContent=Array.from({length:Math.max(e,1)},(e,t)=>t+1).join(`
-`)},c=()=>{r.hidden=!1,a.hidden=!0,n.focus()};n.addEventListener(`input`,s),a.addEventListener(`click`,c),e.querySelector(`#fw-example`).addEventListener(`click`,()=>{n.value=pg,s(),c()}),e.querySelector(`#fw-run`).addEventListener(`click`,()=>{l()}),s();async function l(){o.innerHTML=``;let e=n.value,r;try{r=await zl(e)}catch(e){if(e instanceof kl){d(e);return}u(1,`Turtle parsing failed`,e instanceof Al&&e.line!==void 0?`line ${e.line}: ${e.message}`:String(e.message));return}if(r.shapes.length===0){u(1,`No node shapes found`,`The input has no subjects declared as sh:NodeShape and no target declarations.`);return}try{let t=new Pa.Store(new Pa.Parser().parse(e)),n=await new wl(hg()).validate(t);if(!n.conforms){u(2,`Not a well-formed shapes graph (SHACL-SHACL)`,n.results.slice(0,8).map(e=>`• ${e.message.map(e=>e.value).join(`; `)||(e.sourceConstraintComponent?.value??`violation`)}`).join(`
+`)},c=()=>{r.hidden=!1,a.hidden=!0,n.focus()};n.addEventListener(`input`,s),a.addEventListener(`click`,c),e.querySelector(`#fw-example`).addEventListener(`click`,()=>{n.value=pg,s(),c()}),e.querySelector(`#fw-run`).addEventListener(`click`,()=>{l()}),s();async function l(){o.innerHTML=``;let e=n.value,r;try{r=await zl(e)}catch(e){if(e instanceof kl){d(e);return}u(1,`Parsing failed`,e instanceof Al&&e.line!==void 0?`line ${e.line}: ${e.message}`:String(e.message));return}if(r.shapes.length===0){u(1,`No node shapes found`,`The input has no subjects declared as sh:NodeShape and no target declarations.`);return}try{let t=new Pa.Store(new Pa.Parser().parse(e)),n=await new wl(hg()).validate(t);if(!n.conforms){u(2,`Not a well-formed shapes graph (SHACL-SHACL)`,n.results.slice(0,8).map(e=>`• ${e.message.map(e=>e.value).join(`; `)||(e.sourceConstraintComponent?.value??`violation`)}`).join(`
 `));return}}catch(e){u(2,`Well-formedness check failed to run`,String(e.message));return}let i=[];for(let e of r.shapes)try{let n=Gl(e,t.plugins);i.push(tu(t.compiled,n,r.prefixes,{annotate:!0}))}catch(e){if(e instanceof kl){d(e);return}throw e}f(i,e),window.dispatchEvent(new CustomEvent(`formalens:result`,{detail:{ok:!0}}))}function u(e,t,n){window.dispatchEvent(new CustomEvent(`formalens:result`,{detail:{ok:!1}})),o.innerHTML=`
       <div class="reject">
         <span class="reject-gate">Gate ${e} of 3</span>

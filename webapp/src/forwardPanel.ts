@@ -40,7 +40,7 @@ export function mountForwardPanel(root: HTMLElement, data: AppData): void {
     <div class="split">
       <div class="card">
         <div class="card-head">
-          <span class="card-title">SHACL shapes (Turtle)</span>
+          <span class="card-title">SHACL shapes</span>
           <span class="btn-row">
             <button id="fw-example" class="btn">Load example</button>
             <button id="fw-run" class="btn primary">Translate</button>
@@ -50,7 +50,7 @@ export function mountForwardPanel(root: HTMLElement, data: AppData): void {
           <div class="editor" id="fw-editor">
             <div class="editor-gutter" id="fw-gutter">1</div>
             <textarea id="fw-input" spellcheck="false"
-              placeholder="Paste a Turtle shapes graph here…"></textarea>
+              placeholder="Paste a shapes graph here…"></textarea>
           </div>
           <pre id="fw-mirror" class="ttl-view" hidden></pre>
         </div>
@@ -101,7 +101,7 @@ export function mountForwardPanel(root: HTMLElement, data: AppData): void {
       parsed = await parseShapes(ttl);
     } catch (err) {
       if (err instanceof UnsupportedConstruct) { renderRejection(err); return; }
-      gateFail(1, "Turtle parsing failed", err instanceof ParseError && err.line !== undefined
+      gateFail(1, "Parsing failed", err instanceof ParseError && err.line !== undefined
         ? `line ${err.line}: ${err.message}` : String((err as Error).message));
       return;
     }
