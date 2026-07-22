@@ -44,11 +44,11 @@ export function mountTransparency(root: HTMLElement, data: AppData): void {
       </section>
 
       <section>
-        <h2>Load warnings (judge-loop inputs)</h2>
+        <h2>Load warnings</h2>
         <p class="note">Ambiguity and supported-unruled warnings feed the verification loop;
-        their disposition is recorded once the loop attaches.</p>
+        anything still outstanding after it is listed here.</p>
         <table id="tp-warnings">
-          <thead><tr><th>Kind</th><th>Detail</th><th>Disposition</th></tr></thead>
+          <thead><tr><th>Kind</th><th>Detail</th></tr></thead>
           <tbody></tbody>
         </table>
       </section>
@@ -98,19 +98,18 @@ export function mountTransparency(root: HTMLElement, data: AppData): void {
        <td>${esc(e.detail)}</td></tr>`);
   }
 
-  // warnings table
+  // warnings table: disposed warnings are resolved and not shown
   const warnBody = root.querySelector("#tp-warnings tbody")!;
-  if (data.warnings.length === 0) {
+  const outstanding = data.warnings.filter((w) =>
+    data.warningsDisposed.find((d) =>
+      d.code === w.code && JSON.stringify(d.ruleIds ?? null) === JSON.stringify(w.ruleIds ?? null)) === undefined);
+  if (outstanding.length === 0) {
     warnBody.insertAdjacentHTML("beforeend",
-      `<tr><td colspan="3">No warnings were raised when loading this profile.</td></tr>`);
+      `<tr><td colspan="2">No outstanding warnings.</td></tr>`);
   }
-  for (const w of data.warnings) {
-    const disposal = data.warningsDisposed.find((d) =>
-      d.code === w.code && JSON.stringify(d.ruleIds ?? null) === JSON.stringify(w.ruleIds ?? null));
+  for (const w of outstanding) {
     warnBody.insertAdjacentHTML("beforeend",
-      `<tr><td><code>${esc(w.code)}</code></td><td>${esc(w.message)}</td>
-       <td class="${disposal !== undefined ? "status-pass" : "status-pending"}">${
-         disposal !== undefined ? "disposed: " + esc(disposal.disposition) : "pending (not yet reviewed)"}</td></tr>`);
+      `<tr><td><code>${esc(w.code)}</code></td><td>${esc(w.message)}</td></tr>`);
   }
 
   // version table
