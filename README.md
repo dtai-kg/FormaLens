@@ -17,10 +17,16 @@ paper's notation) and, when the paper assumes a normalized form,
 rule against the paper (LLM-as-judge, quoting the defining passages as
 grounds) and repairs it until every check passes.
 
+## Demo
+
+We ran FormaLens on the SHACL2RML paper, accepted at the ISWC 2026 Research
+Track; the resulting interactive webpage is accessible at
+<https://dtai-kg.github.io/FormaLens/demo/shacl2rml>.
+
 ## Setup
 
 ```bash
-git clone https://github.com/dtai-kg/formalens.git && cd formalens
+git clone https://github.com/dtai-kg/FormaLens.git && cd formalens
 npm install
 ```
 
@@ -49,9 +55,7 @@ instructions are tool-agnostic.
 The deliverable is a single offline `webapp/dist/index.html`: paste shapes to
 see the paper's notation (subexpression↔source-line highlighting, per-operator
 citations), assemble formulas from menus to get shapes back, and read the
-rule-by-rule review on the transparency tab. For a finished example, open
-`demo/shacl2rml/index.html` (or the [live page](https://dtai-kg.github.io/formalens/demo/shacl2rml)):
-the SHACL2RML paper compiled into exactly such a page.
+rule-by-rule review on the transparency tab.
 
 ## Repository layout
 
@@ -63,7 +67,7 @@ the SHACL2RML paper compiled into exactly such a page.
 | `skill/` | Task instructions for the compiling agent: `SKILL.md` (six-step pipeline) and `plugin-guide.md` (plugin contract) |
 | `compilation/` | The compilation slot: the agent writes `profile.json`, `plugins/`, and `review.json` here; the webpage build assembles whatever the slot contains |
 | `tools/compose-check.ts` | Composition check used in the verify-and-repair loop (step 5.4 of SKILL.md) |
-| `demo/shacl2rml/` | A finished example: the SHACL2RML paper compiled into its translator webpage (`index.html`, opens offline; [live page](https://dtai-kg.github.io/formalens/demo/shacl2rml)) |
+| `demo/shacl2rml/` | A finished example: the SHACL2RML paper compiled into its translator webpage (`index.html`, opens offline; [live page](https://dtai-kg.github.io/FormaLens/demo/shacl2rml)) |
 | `assets/shacl-shacl.ttl` | W3C recommendation appendix shapes, used by the webpage's well-formedness gate |
 
 ## Requirements
